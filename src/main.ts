@@ -3,6 +3,13 @@ import * as path from 'path';
 
 let mainWindow: BrowserWindow | null = null;
 
+// 设置应用数据目录,避免缓存权限问题
+app.setPath('userData', path.join(app.getPath('appData'), 'desktop-pet'));
+
+// 禁用 GPU 进程的某些功能,避免缓存错误
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+app.commandLine.appendSwitch('disable-gpu-program-cache');
+
 function createWindow() {
   const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
 
