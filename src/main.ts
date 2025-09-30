@@ -8,10 +8,10 @@ function createWindow() {
 
   // 创建透明的无边框窗口
   mainWindow = new BrowserWindow({
-    width: 200,
-    height: 200,
-    x: screenWidth - 250,
-    y: screenHeight - 250,
+    width: 300,
+    height: 300,
+    x: screenWidth - 350,
+    y: screenHeight - 350,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -31,7 +31,7 @@ function createWindow() {
   const isDev = !app.isPackaged;
   if (isDev) {
     mainWindow.loadURL('http://localhost:5173');
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
+    // mainWindow.webContents.openDevTools({ mode: 'detach' }); // 不自动打开
   } else {
     mainWindow.loadFile(path.join(__dirname, '../index.html'));
   }
@@ -91,6 +91,13 @@ ipcMain.on('show-context-menu', (event) => {
       label: '💬 说句话',
       click: () => {
         mainWindow?.webContents.send('say-something');
+      }
+    },
+    { type: 'separator' },
+    {
+      label: '🔧 开发工具',
+      click: () => {
+        mainWindow?.webContents.toggleDevTools();
       }
     },
     { type: 'separator' },
