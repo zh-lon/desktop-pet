@@ -23,7 +23,7 @@
 
 .message-bubble {
   position: absolute;
-  top: -70px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%) scale(0.8);
   background: rgba(255, 255, 255, 0.95);
