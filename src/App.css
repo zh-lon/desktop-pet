@@ -23,7 +23,7 @@
 
 .message-bubble {
   position: absolute;
-  top: 30px;
+  top: -70px;
   left: 50%;
   transform: translateX(-50%) scale(0.8);
   background: rgba(255, 255, 255, 0.95);
@@ -36,7 +36,6 @@
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
-  z-index: 100;
 }
 
 .message-bubble.show {
@@ -59,29 +58,50 @@
 
 .pet {
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 150px;
-  height: 150px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* 温柔的整体投影增强立体感 */
 }
 
 /* Q版兔子 - 大头 */
 .pet-head {
   position: relative;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  width: 116px;
+  height: 96px;
+  /* background: radial-gradient(60% 60% at 50% 40%, #fffdfd 0%, #fff5f5 60%, #ffe8e8 100%); */
+  background-color: #fff9f9;
   border-radius: 50%;
-  box-shadow: 0 8px 20px rgba(255, 200, 200, 0.3);
   z-index: 2;
-  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 200, 200, 0.5);
+}
+
+/* 小身体 */
+.pet-body {
+  position: relative;
+  width: 70px;
+  height: 80px;
+  background: radial-gradient(
+    70% 70% at 50% 30%,
+    #fffefe 0%,
+    #fff6f6 55%,
+    #ffe9ea 100%
+  );
+  border-radius: 45% 45% 55% 55%;
+  margin-top: -15px;
+  z-index: 1;
 }
 
 .pet:hover .pet-head {
+  transform: scale(1.05);
+}
+
+.pet:hover .pet-body {
   transform: scale(1.05);
 }
 
@@ -94,12 +114,37 @@
   height: 80%;
 }
 
+/* 腮红：柔和且有一点点朦胧 */
+.pet-face::before,
+.pet-face::after {
+  content: "";
+  position: absolute;
+  top: 58%;
+  width: 33px;
+  height: 10px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 170, 185, 0.45) 0%,
+    rgba(255, 170, 185, 0.2) 60%,
+    transparent 70%
+  );
+  filter: blur(0.2px);
+  border-radius: 50%;
+}
+
+.pet-face::before {
+  left: 0%;
+}
+.pet-face::after {
+  right: 0%;
+}
+
 .pet-eyes {
   position: absolute;
-  top: 40%;
+  top: 38%;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px;
+  width: 56px;
   display: flex;
   justify-content: space-between;
 }
@@ -107,10 +152,10 @@
 .pet-eye {
   width: 16px;
   height: 20px;
-  background: #333;
+  background: #5c3030;
   border-radius: 50%;
   position: relative;
-  animation: blink 3s infinite;
+  animation: blink 3.4s infinite;
 }
 
 .pet-eye::after {
@@ -118,28 +163,40 @@
   position: absolute;
   top: 4px;
   left: 4px;
-  width: 6px;
-  height: 6px;
+  width: 3px;
+  height: 4px;
   background: white;
+  border-radius: 50%;
+}
+
+/* 第二个小高光，让眼神更灵动 */
+.pet-eye::before {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  right: 3px;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.65);
   border-radius: 50%;
 }
 
 @keyframes blink {
   0%,
-  48%,
-  52%,
+  46%,
+  54%,
   100% {
     transform: scaleY(1);
   }
   50% {
-    transform: scaleY(0.1);
+    transform: scaleY(0.08);
   }
 }
 
 /* 粉色小鼻子 */
 .pet-nose {
   position: absolute;
-  top: 55%;
+  top: 62%;
   left: 50%;
   transform: translateX(-50%);
   width: 10px;
@@ -150,10 +207,10 @@
 
 .pet-mouth {
   position: absolute;
-  top: 62%;
+  top: 70%;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
+  width: 16px;
   height: 12px;
 }
 
@@ -162,9 +219,9 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 10px;
-  height: 8px;
-  border: 2px solid #333;
+  width: 7px;
+  height: 4px;
+  border: 2px solid #bd8383;
   border-top: none;
   border-radius: 0 0 10px 10px;
 }
@@ -181,8 +238,8 @@
 .pet-ears {
   position: absolute;
   width: 100px;
-  height: 70px;
-  top: -60px;
+  height: 90px;
+  top: -45px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -190,54 +247,194 @@
 
 .pet-ear {
   position: absolute;
-  width: 18px;
-  height: 70px;
-  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  width: 40px;
+  height: 100px;
+  background: linear-gradient(135deg, #fff9f9 0%, #ffecec 100%);
   border-radius: 50% 50% 30% 30%;
   border: 2px solid rgba(255, 200, 200, 0.5);
-  top: 0;
-  box-shadow: inset 0 0 10px rgba(255, 182, 193, 0.2);
+  top: -12px;
+  /* 以耳朵底部为旋转轴，确保与头部摇摆更自然同步 */
+  transform-origin: 50% 90%;
 }
 
 .pet-ear::after {
   content: "";
   position: absolute;
-  top: 8px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 40px;
-  background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+  width: 18px;
+  height: 107px;
+  background: radial-gradient(
+    70% 70% at 50% 30%,
+    #ffc1cc 0%,
+    #ffb6c1 60%,
+    #ffc8d2 100%
+  );
   border-radius: 50%;
 }
 
 .pet-ear.left {
-  left: 10px;
-  transform: rotate(-10deg);
+  left: 6px;
+  transform: rotate(-2deg);
 }
 
 .pet-ear.right {
-  right: 10px;
-  transform: rotate(10deg);
+  right: 6px;
+  transform: rotate(2deg);
+}
+
+/* 短手短脚 */
+.pet-arm {
+  position: absolute;
+  width: 14px;
+  height: 32px;
+  background: linear-gradient(135deg, #fff9f9 0%, #ffecec 100%);
+  border-radius: 30%;
+  top: 10px;
+}
+
+.pet-arm.left {
+  left: -5px;
+  transform: rotate(-20deg);
+}
+
+.pet-arm.right {
+  right: -5px;
+  transform: rotate(20deg);
+}
+
+.pet-leg {
+  position: absolute;
+  width: 20px;
+  height: 24px;
+  background: linear-gradient(135deg, #fff9f9 0%, #ffecec 100%);
+  border-radius: 40% 40% 50% 50%;
+  bottom: -8px;
+}
+
+.pet-leg.left {
+  left: 8px;
+}
+
+.pet-leg.right {
+  right: 8px;
+}
+
+/* 小尾巴：让背影更萌 */
+.pet-body::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: 8px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(
+    65% 65% at 40% 40%,
+    #ffffff 0%,
+    #fff5f7 60%,
+    #ffe8ed 100%
+  );
+  border-radius: 50%;
 }
 
 /* 动作动画 */
 .pet-idle .pet-head {
-  animation: idle 2s ease-in-out infinite;
+  animation: idle 2.2s ease-in-out infinite;
+}
+
+.pet-idle .pet-body {
+  animation: idle 2.2s ease-in-out infinite 0.1s;
+}
+
+/* 轻柔耳朵摆动（Idle）*/
+.pet-idle .pet-ear.left {
+  animation: ear-wiggle-left 2.2s ease-in-out infinite;
+}
+.pet-idle .pet-ear.right {
+  animation: ear-wiggle-right 2.2s ease-in-out infinite;
+}
+
+/* 行走时耳朵跟随左右摇摆 */
+.pet-walk .pet-ear.left {
+  animation: ear-walk-left 0.5s ease-in-out infinite;
+}
+.pet-walk .pet-ear.right {
+  animation: ear-walk-right 0.5s ease-in-out infinite;
 }
 
 @keyframes idle {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes ear-wiggle-left {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes ear-wiggle-right {
+  0%,
+  100% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes ear-walk-left {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  25% {
+    transform: rotate(-16deg);
+  }
+  50% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes ear-walk-right {
+  0%,
+  100% {
+    transform: rotate(6deg);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+  75% {
+    transform: rotate(16deg);
   }
 }
 
 .pet-walk .pet-head {
   animation: walk 0.5s ease-in-out infinite;
+}
+
+.pet-walk .pet-body {
+  animation: walk 0.5s ease-in-out infinite 0.1s;
+}
+
+.pet-walk .pet-arm {
+  animation: wave 0.5s ease-in-out infinite;
 }
 
 @keyframes walk {
@@ -253,8 +450,26 @@
   }
 }
 
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(-40deg);
+  }
+}
+
 .pet-sit .pet-head {
   animation: sit-head 1s ease-in-out forwards;
+}
+
+.pet-sit .pet-body {
+  animation: sit 1s ease-in-out forwards;
+}
+
+.pet-sit .pet-leg {
+  animation: sit-leg 1s ease-in-out forwards;
 }
 
 @keyframes sit-head {
@@ -263,8 +478,26 @@
   }
 }
 
+@keyframes sit {
+  to {
+    height: 60px;
+    border-radius: 50% 50% 60% 60%;
+  }
+}
+
+@keyframes sit-leg {
+  to {
+    bottom: -15px;
+    width: 25px;
+  }
+}
+
 .pet-sleep .pet-head {
   animation: sleep-head 2s ease-in-out infinite;
+}
+
+.pet-sleep .pet-body {
+  animation: sleep 2s ease-in-out infinite;
 }
 
 .pet-sleep .pet-eye {
@@ -283,6 +516,16 @@
   }
   50% {
     transform: translateY(8px);
+  }
+}
+
+@keyframes sleep {
+  0%,
+  100% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(0.92);
   }
 }
 
@@ -305,4 +548,7 @@
   color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
   pointer-events: none;
+}
+
+.pet-glasses {
 }
